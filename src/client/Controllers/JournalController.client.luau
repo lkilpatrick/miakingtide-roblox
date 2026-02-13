@@ -40,18 +40,18 @@ local COLORS = {
 local CREATURE_COLORS: { [string]: Color3 } = {
 	marlow = Color3.fromRGB(139, 90, 43),
 	luna = Color3.fromRGB(101, 67, 33),
-	flip = Color3.fromRGB(169, 169, 169),
-	octopus = Color3.fromRGB(178, 34, 34),
-	batray = Color3.fromRGB(64, 64, 64),
+	seahorse = Color3.fromRGB(219, 130, 163),
+	redoctopus = Color3.fromRGB(210, 70, 50),
+	treefish = Color3.fromRGB(200, 180, 50),
 }
 
 -- Creature emoji/icons (placeholder text icons)
 local CREATURE_ICONS: { [string]: string } = {
 	marlow = "🦦",
 	luna = "🦭",
-	flip = "🦭",
-	octopus = "🐙",
-	batray = "🦈",
+	seahorse = "🐴",
+	redoctopus = "🐙",
+	treefish = "🐟",
 }
 
 local function formatTimestamp(timestamp: number): string
@@ -173,7 +173,7 @@ local function buildJournalUI(): ScreenGui
 	listLayout.Parent = scrollFrame
 
 	-- Build a card for each creature
-	local orderedCreatures = { "marlow", "luna", "flip", "octopus", "batray" }
+	local orderedCreatures = { "marlow", "luna", "seahorse", "redoctopus", "treefish" }
 
 	for _, creatureId in orderedCreatures do
 		local def = CreatureDefinitions[creatureId]

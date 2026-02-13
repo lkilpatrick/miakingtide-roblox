@@ -140,7 +140,7 @@ local function showCelebration()
 	subtitle.Parent = card
 
 	-- Creature list
-	local creatures = "🦦 Marlow  •  🦭 Luna  •  🦭 Flip\n🐙 Octopus  •  🦈 Bat Ray"
+	local creatures = "🦦 Marlow  •  🦭 Luna  •  🐴 Seahorse\n🐙 Red Octopus  •  🐟 Treefish"
 	local creatureList = Instance.new("TextLabel")
 	creatureList.Size = UDim2.new(1, -40, 0, 50)
 	creatureList.Position = UDim2.new(0.5, 0, 0, 195)

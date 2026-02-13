@@ -40,7 +40,7 @@ local function handleChatCommand(player: Player, message: string)
 		-- Debug command: unlock all creatures instantly
 		local handler = getPlayerDataHandler()
 		if handler then
-			local creatures = { "marlow", "luna", "flip", "octopus", "batray" }
+			local creatures = { "marlow", "luna", "seahorse", "redoctopus", "treefish" }
 			for _, creatureId in creatures do
 				handler.UnlockCreature(player, creatureId)
 			end

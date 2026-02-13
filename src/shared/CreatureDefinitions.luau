@@ -30,28 +30,28 @@ local CreatureDefinitions: { [string]: CreatureData } = {
 		UnlockFact = "Sea lions can rotate their back flippers forward to walk on land!",
 		HabitatZone = "RockyOutcrop",
 	},
-	flip = {
-		Id = "flip",
-		Name = "Flip",
-		Description = "A shy harbor seal hiding near the pier.",
+	seahorse = {
+		Id = "seahorse",
+		Name = "Seahorse",
+		Description = "A delicate seahorse drifting among the pier pylons.",
 		HabitatHint = "Peek around the old pier pylons...",
-		UnlockFact = "Harbor seals can hold their breath for up to 30 minutes underwater!",
+		UnlockFact = "Seahorses are the only animals where the male gives birth to babies!",
 		HabitatZone = "Pier",
 	},
-	octopus = {
-		Id = "octopus",
-		Name = "Giant Pacific Octopus",
-		Description = "A master of disguise lurking in a rocky crevice.",
+	redoctopus = {
+		Id = "redoctopus",
+		Name = "Red Octopus",
+		Description = "A clever red octopus hiding in a rocky crevice.",
 		HabitatHint = "Search the dark rocky crevice near the cave...",
-		UnlockFact = "The Giant Pacific Octopus has three hearts and blue blood!",
+		UnlockFact = "The Red Octopus can change color in less than a second to blend in!",
 		HabitatZone = "RockyCrevice",
 	},
-	batray = {
-		Id = "batray",
-		Name = "Bat Ray",
-		Description = "A graceful ray gliding over the sandy bottom.",
+	treefish = {
+		Id = "treefish",
+		Name = "Treefish",
+		Description = "A bold yellow-and-black striped fish resting on the sandy bottom.",
 		HabitatHint = "Scan the sandy bottom of the shallow bay...",
-		UnlockFact = "Bat rays flap their pectoral fins like wings to 'fly' through the water!",
+		UnlockFact = "Treefish can live for over 20 years and rarely stray far from their home rock!",
 		HabitatZone = "SandyBottom",
 	},
 }
