@@ -45,13 +45,20 @@ local CREATURE_COLORS: { [string]: Color3 } = {
 	treefish = Color3.fromRGB(200, 180, 50),
 }
 
--- Creature emoji/icons (placeholder text icons)
+-- Creature emoji/icons (fallback text icons)
 local CREATURE_ICONS: { [string]: string } = {
 	marlow = "🦦",
 	luna = "🦭",
 	seahorse = "🐴",
 	redoctopus = "🐙",
 	treefish = "🐟",
+}
+
+-- Uploaded sprite image asset IDs (used instead of emoji when available)
+local CREATURE_IMAGES: { [string]: string } = {
+	seahorse = "rbxassetid://73359569792579",
+	redoctopus = "rbxassetid://87341373289618",
+	treefish = "rbxassetid://115187179032064",
 }
 
 local function formatTimestamp(timestamp: number): string
@@ -212,6 +219,16 @@ local function buildJournalUI(): ScreenGui
 		iconLabel.Font = Enum.Font.GothamBold
 		iconLabel.Parent = iconFrame
 
+		-- Image overlay (hidden by default, shown when unlocked if sprite exists)
+		local iconImage = Instance.new("ImageLabel")
+		iconImage.Name = "IconImage"
+		iconImage.Size = UDim2.fromScale(1, 1)
+		iconImage.BackgroundTransparency = 1
+		iconImage.ScaleType = Enum.ScaleType.Fit
+		iconImage.Image = ""
+		iconImage.Visible = false
+		iconImage.Parent = iconFrame
+
 		-- Text area (right side)
 		local nameLabel = Instance.new("TextLabel")
 		nameLabel.Name = "CreatureName"
@@ -273,13 +290,24 @@ local function updateCard(creatureId: string)
 	local descLabel = card:FindFirstChild("Description")
 	local timestampLabel = card:FindFirstChild("Timestamp")
 
+	local iconImage = iconFrame and iconFrame:FindFirstChild("IconImage")
+
 	if isUnlocked then
 		card.BackgroundColor3 = COLORS.CardUnlocked
 		if iconFrame then
 			iconFrame.BackgroundColor3 = CREATURE_COLORS[creatureId] or COLORS.Accent
 		end
-		if iconLabel then
-			iconLabel.Text = CREATURE_ICONS[creatureId] or "✅"
+		-- Use sprite image if available, otherwise fall back to emoji
+		if iconImage and CREATURE_IMAGES[creatureId] then
+			iconImage.Image = CREATURE_IMAGES[creatureId]
+			iconImage.Visible = true
+			if iconLabel then iconLabel.Visible = false end
+		else
+			if iconImage then iconImage.Visible = false end
+			if iconLabel then
+				iconLabel.Visible = true
+				iconLabel.Text = CREATURE_ICONS[creatureId] or "✅"
+			end
 		end
 		if nameLabel then
 			nameLabel.Text = def.Name
@@ -296,7 +324,9 @@ local function updateCard(creatureId: string)
 		if iconFrame then
 			iconFrame.BackgroundColor3 = COLORS.Silhouette
 		end
+		if iconImage then iconImage.Visible = false end
 		if iconLabel then
+			iconLabel.Visible = true
 			iconLabel.Text = "❓"
 		end
 		if nameLabel then
@@ -377,14 +407,25 @@ local function showUnlockPopup(creatureId: string)
 	popupStroke.Thickness = 2
 	popupStroke.Parent = popup
 
-	local icon = Instance.new("TextLabel")
-	icon.Size = UDim2.fromOffset(60, 60)
-	icon.Position = UDim2.fromOffset(15, 20)
-	icon.BackgroundTransparency = 1
-	icon.Text = CREATURE_ICONS[creatureId] or "✅"
-	icon.TextSize = 40
-	icon.Font = Enum.Font.GothamBold
-	icon.Parent = popup
+	-- Popup icon: use image if available, otherwise emoji
+	if CREATURE_IMAGES[creatureId] then
+		local icon = Instance.new("ImageLabel")
+		icon.Size = UDim2.fromOffset(60, 60)
+		icon.Position = UDim2.fromOffset(15, 20)
+		icon.BackgroundTransparency = 1
+		icon.ScaleType = Enum.ScaleType.Fit
+		icon.Image = CREATURE_IMAGES[creatureId]
+		icon.Parent = popup
+	else
+		local icon = Instance.new("TextLabel")
+		icon.Size = UDim2.fromOffset(60, 60)
+		icon.Position = UDim2.fromOffset(15, 20)
+		icon.BackgroundTransparency = 1
+		icon.Text = CREATURE_ICONS[creatureId] or "✅"
+		icon.TextSize = 40
+		icon.Font = Enum.Font.GothamBold
+		icon.Parent = popup
+	end
 
 	local title = Instance.new("TextLabel")
 	title.Size = UDim2.new(1, -90, 0, 30)
